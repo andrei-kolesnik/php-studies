@@ -112,7 +112,7 @@ print("PHP version: " . phpversion() . "\n");
 class fn {
   const fn = 100;
   public function fn() {
-      print(self::fn . "\n");
+    print(__FUNCTION__ . " - " . self::fn . "\n");
   }
 }
 
@@ -128,7 +128,7 @@ fn();
 #### PHP 7.3:
 ```diff
 PHP version: 7.3.8
-100
+fn - 100
 fn
 ```
 

@@ -4,7 +4,7 @@ print("PHP version: " . phpversion() . "\n");
 class fn {
   const fn = 100;
   public function fn() {
-      print(self::fn . "\n");
+      print(__FUNCTION__ . " - " . self::fn . "\n");
   }
 }
 
