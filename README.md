@@ -1,4 +1,4 @@
-# PHP Versions Differences: PHP 7.4
+# PHP Versions Difference: PHP 7.4
 https://github.com/php/php-src/blob/php-7.4.0beta1/UPGRADING
 
 ## Backward Incompatible Changes
@@ -60,7 +60,7 @@ Notice: Trying to access array offset on value of type int in {app}.php on line 
 NULL
 ```
 
-### 01-02. 
+### 01-02. get_declared_classes()
 `get_declared_classes()` no longer returns anonymous classes that haven't been instantiated yet.
 
 ```php
