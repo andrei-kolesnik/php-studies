@@ -5,9 +5,12 @@ https://github.com/php/php-src/blob/php-7.4.0beta1/UPGRADING
 
 ### Core
 
-1. Trying to use values of type *null*, *bool*, *int*, *float* or resource as an *array* will now generate a notice. This does not affect array accesses performed by `list()`. RFC: https://wiki.php.net/rfc/notice-for-non-valid-array-container
+1. Trying to use values of type *null*, *bool*, *int*, *float* or resource as an *array* (such as `$null["key"]`) will now generate a notice. This does not affect array accesses performed by `list()`. RFC: https://wiki.php.net/rfc/notice-for-non-valid-array-container
 
 ```php
+<?php
+print("PHP version: " . phpversion() . "\n");
+
 error_reporting(E_ALL);
 
 $nullvar = null;
@@ -21,30 +24,35 @@ var_dump($intvar[0]);
 var_dump($nullvar[0][1]);
 var_dump($arrvar[0][1]);
 ```
+
 #### PHP 7.3:
 ```diff
+PHP version: 7.3.8
 NULL 
 NULL
 NULL
 NULL
 NULL
 ```
+
 #### PHP 7.4:
 ```diff
-Notice: Trying to access array offset on value of type null in {app}.php on line 8
-NULL
-
-Notice: Trying to access array offset on value of type bool in {app}.php on line 9
-NULL
-
-Notice: Trying to access array offset on value of type int in {app}.php on line 10
-NULL
-
-Notice: Trying to access array offset on value of type null in {app}.php on line 11
+PHP version: 7.4.0beta1
 
 Notice: Trying to access array offset on value of type null in {app}.php on line 11
 NULL
 
-Notice: Trying to access array offset on value of type int in {app}.php on line 12
+Notice: Trying to access array offset on value of type bool in {app}.php on line 12
+NULL
+
+Notice: Trying to access array offset on value of type int in {app}.php on line 13
+NULL
+
+Notice: Trying to access array offset on value of type null in {app}.php on line 14
+
+Notice: Trying to access array offset on value of type null in {app}.php on line 14
+NULL
+
+Notice: Trying to access array offset on value of type int in {app}.php on line 15
 NULL
 ```
