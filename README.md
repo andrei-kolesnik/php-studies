@@ -101,3 +101,35 @@ class@anonymous/usr/local/src/myapp/01-02-get-declared-classes.php0x7fb5de13f067
 PHP version: 7.4.0beta1
 No anonymous classes
 ```
+
+### 01-03. `fn` is a reserved keyword
+`fn` is now a reserved keyword. In particular it can no longer be used as a function or class name. It can still be used as a method or class constant name.
+
+```php
+<?php
+print("PHP version: " . phpversion() . "\n");
+
+class fn {
+  const fn = 100;
+  public function fn() 
+  {
+      print(self::fn);
+  }
+}
+
+$fn = new fn(); 
+$fn->fn();
+```
+
+#### PHP 7.3:
+```diff
+PHP version: 7.3.8
+100
+```
+
+#### PHP 7.4:
+```diff
+PHP version: 7.4.0beta1
+Parse error: syntax error, unexpected 'fn' (T_FN), expecting identifier (T_STRING) in {app}.php on line 4
+Parse error: syntax error, unexpected 'fn' (T_FN), expecting identifier (T_STRING) in {app}.php on line 12
+```
