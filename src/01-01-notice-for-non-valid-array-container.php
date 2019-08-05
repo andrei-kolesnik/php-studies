@@ -13,3 +13,4 @@ var_dump($boolvar[0]);
 var_dump($intvar[0]);
 var_dump($nullvar[0][1]);
 var_dump($arrvar[0][1]);
+?>
