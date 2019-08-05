@@ -1,0 +1,4 @@
+FROM php:7.4.0beta1-cli
+COPY . /usr/local/src/myapp
+WORKDIR /usr/local/src/myapp
+CMD [ "php", "./01-01-notice-for-non-valid-array-container.php" ]
