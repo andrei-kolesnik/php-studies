@@ -3,6 +3,7 @@ ln ../src/01-02-get-declared-classes.php .
 ln ../src/01-03-fn-reserved-keyword.php .
 ln ../src/01-04-list-assignment-by-reference.php .
 ln ../src/01-05-php-opening-tag-at-eof.php .
+ln ../src/02-01-typed-properties.php .
 docker build -t php73-app .
 docker run -it --rm --name running73-app php73-app
 
@@ -11,3 +12,4 @@ docker run -it --rm --name running73-app php73-app
 # docker run -it --rm --name running73-app -v "$PWD":/usr/local/src/myapp -w /usr/local/src/myapp php:7.3.8-cli php 01-03-fn-reserved-keyword.php
 # docker run -it --rm --name running73-app -v "$PWD":/usr/local/src/myapp -w /usr/local/src/myapp php:7.3.8-cli php 01-04-list-assignment-by-reference.php
 # docker run -it --rm --name running73-app -v "$PWD":/usr/local/src/myapp -w /usr/local/src/myapp php:7.3.8-cli php 01-05-php-opening-tag-at-eof.php
+# docker run -it --rm --name running73-app -v "$PWD":/usr/local/src/myapp -w /usr/local/src/myapp php:7.3.8-cli php 02-01-typed-properties.php

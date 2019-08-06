@@ -1,9 +1,9 @@
 # PHP Versions Difference: PHP 7.4
 https://github.com/php/php-src/blob/php-7.4.0beta1/UPGRADING
 
-## Backward Incompatible Changes
+## 01. Backward Incompatible Changes
 
-### 01. Core
+### --- Core ---
 
 ### 01-01. Notice for a non-valid array container
 Trying to use values of type *null*, *bool*, *int*, *float* or resource as an *array* (such as `$null["key"]`) will now generate a notice. This does not affect array accesses performed by `list()`. 
@@ -28,9 +28,8 @@ var_dump($nullvar[0][1]);
 var_dump($arrvar[0][1]);
 ```
 
-#### PHP 7.3:
+#### PHP version: 7.3.8
 ```diff
-PHP version: 7.3.8
 NULL 
 NULL
 NULL
@@ -38,10 +37,8 @@ NULL
 NULL
 ```
 
-#### PHP 7.4:
+#### PHP version: 7.4.0beta1
 ```diff
-PHP version: 7.4.0beta1
-
 Notice: Trying to access array offset on value of type null in {app}.php on line 11
 NULL
 
@@ -90,15 +87,13 @@ if (count($anonymousClasses) > 0) {
 }
 ```
 
-#### PHP 7.3:
+#### PHP version: 7.3.8
 ```diff
-PHP version: 7.3.8
 class@anonymous/usr/local/src/myapp/01-02-get-declared-classes.php0x7fb5de13f067
 ```
 
-#### PHP 7.4:
+#### PHP version: 7.4.0beta1
 ```diff
-PHP version: 7.4.0beta1
 No anonymous classes
 ```
 
@@ -125,16 +120,14 @@ $fn->fn();
 fn();
 ```
 
-#### PHP 7.3:
+#### PHP version: 7.3.8
 ```diff
-PHP version: 7.3.8
 fn - 100
 fn
 ```
 
-#### PHP 7.4:
+#### PHP version: 7.4.0beta1
 ```diff
-PHP version: 7.4.0beta1
 Parse error: syntax error, unexpected 'fn' (T_FN), expecting identifier (T_STRING) in {app}.php on line 4
 Parse error: syntax error, unexpected 'fn' (T_FN), expecting identifier (T_STRING) in {app}.php on line 11
 ```
@@ -157,9 +150,8 @@ change(list($val) = $array);
 var_dump($array);
 ```
 
-#### PHP 7.3:
+#### PHP version: 7.3.8
 ```diff
-PHP version: 7.3.8
 array(3) {
   [0]=>int(1)
   [1]=>int(2)
@@ -167,10 +159,8 @@ array(3) {
 }
 ```
 
-#### PHP 7.4:
+#### PHP version: 7.4.0beta1
 ```diff
-PHP version: 7.4.0beta1
-
 Notice: Only variables should be passed by reference in {app}.php on line 11
 array(1) {
   [0]=>int(1)
@@ -187,12 +177,44 @@ print("PHP version: " . phpversion() . "\n");
 <?php
 ```
 
-#### PHP 7.3:
+#### PHP version: 7.3.8
 ```diff
 Parse error: syntax error, unexpected end of file in {app}.php on line 4
 ```
 
-#### PHP 7.4:
+#### PHP version: 7.4.0beta1
 ```diff
-PHP version: 7.4.0beta1
+{no errors}
+```
+
+## 02. New Features
+
+### --- Core ---
+
+### 02-01. Typed properties
+Added support for typed properties.
+
+RFC: https://wiki.php.net/rfc/typed_properties_v2
+
+```php
+<?php 
+print("PHP version: " . phpversion() . "\n");
+class User {
+  public int $id;
+  public string $name;
+}
+
+$user = new User();
+$user->id = 'abc';
+$user->name = ['name'];
+```
+
+#### PHP version: 7.3.8
+```diff
+Parse error: syntax error, unexpected 'int' (T_STRING), expecting function (T_FUNCTION) or const (T_CONST) in {app}.php on line 4
+```
+
+#### PHP version: 7.4.0beta1
+```diff
+Fatal error: Uncaught TypeError: Typed property User::$id must be int, string used in {app}.php:9
 ```
