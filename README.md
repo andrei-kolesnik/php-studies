@@ -5,7 +5,7 @@ https://github.com/php/php-src/blob/php-7.4.0beta1/UPGRADING
 
 ### 01. Core
 
-### 01-01. notice-for-non-valid-array-container
+### 01-01. Notice for a non-valid array container
 Trying to use values of type *null*, *bool*, *int*, *float* or resource as an *array* (such as `$null["key"]`) will now generate a notice. This does not affect array accesses performed by `list()`. 
 
 RFC: https://wiki.php.net/rfc/notice-for-non-valid-array-container
@@ -139,7 +139,7 @@ Parse error: syntax error, unexpected 'fn' (T_FN), expecting identifier (T_STRIN
 Parse error: syntax error, unexpected 'fn' (T_FN), expecting identifier (T_STRING) in {app}.php on line 11
 ```
 
-### 01-04. 
+### 01-04. `List()` assignment by reference
 Passing the result of a (non-reference) `list()` assignment by reference is consistently disallowed now. Previously this worked if the right hand side was a simple (CV) variable and did not occur as part of the list().
 
 ```php
@@ -175,4 +175,24 @@ Notice: Only variables should be passed by reference in {app}.php on line 11
 array(1) {
   [0]=>int(1)
 }
+```
+
+### 01-05. `<?php` opening tag at the end of the file
+`<?php` at the end of the file (without trailing newline) will now be interpreted as an opening PHP tag. Previously it was interpreted either as `<? php` and resulted in a syntax error (with `short_open_tag=1`) or was interpreted as a literal `<?php` string (with `short_open_tag=0`).
+
+```php
+<?php 
+print("PHP version: " . phpversion() . "\n");
+?>
+<?php
+```
+
+#### PHP 7.3:
+```diff
+Parse error: syntax error, unexpected end of file in {app}.php on line 4
+```
+
+#### PHP 7.4:
+```diff
+PHP version: 7.4.0beta1
 ```
