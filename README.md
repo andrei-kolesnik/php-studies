@@ -138,3 +138,41 @@ PHP version: 7.4.0beta1
 Parse error: syntax error, unexpected 'fn' (T_FN), expecting identifier (T_STRING) in {app}.php on line 4
 Parse error: syntax error, unexpected 'fn' (T_FN), expecting identifier (T_STRING) in {app}.php on line 11
 ```
+
+### 01-04. 
+Passing the result of a (non-reference) `list()` assignment by reference is consistently disallowed now. Previously this worked if the right hand side was a simple (CV) variable and did not occur as part of the list().
+
+```php
+<?php 
+print("PHP version: " . phpversion() . "\n");
+
+error_reporting(E_ALL);
+
+function change(&$ref) {
+    $ref = [1, 2, 3];
+}
+
+$array = [1];
+change(list($val) = $array);
+var_dump($array);
+```
+
+#### PHP 7.3:
+```diff
+PHP version: 7.3.8
+array(3) {
+  [0]=>int(1)
+  [1]=>int(2)
+  [2]=>int(3)
+}
+```
+
+#### PHP 7.4:
+```diff
+PHP version: 7.4.0beta1
+
+Notice: Only variables should be passed by reference in {app}.php on line 11
+array(1) {
+  [0]=>int(1)
+}
+```
