@@ -218,3 +218,47 @@ Parse error: syntax error, unexpected 'int' (T_STRING), expecting function (T_FU
 ```diff
 Fatal error: Uncaught TypeError: Typed property User::$id must be int, string used in {app}.php:9
 ```
+
+### 02-02. Arrow functions with implicit by-value scope binding
+Added support for arrow functions with implicit by-value scope binding.
+
+RFC: https://wiki.php.net/rfc/arrow_functions_v2
+
+```php
+<?php 
+print("PHP version: " . phpversion() . "\n");
+
+function array_values_from_keys($arr, $keys) {
+    return array_map(
+      function ($x) use ($arr) { 
+        return $arr[$x]; 
+      }, 
+      $keys
+    );
+}
+
+$data = array('zero', 'one', 'two', 'three');
+print_r(array_values_from_keys($data, [0, 2]));
+```
+
+```php
+<?php 
+print("PHP version: " . phpversion() . "\n");
+
+function array_values_from_keys($arr, $keys) {
+    return array_map(fn($x) => $arr[$x], $keys);
+}
+
+$data = array('zero', 'one', 'two', 'three');
+print_r(array_values_from_keys($data, [0, 2]));
+```
+
+#### PHP versions: 7.3.8 and 7.4.0beta1
+```diff
+Array
+(
+    [0] => zero
+    [1] => two
+)
+```
+
