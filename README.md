@@ -217,6 +217,7 @@ Parse error: syntax error, unexpected 'int' (T_STRING), expecting function (T_FU
 #### PHP version: 7.4.0beta1
 ```diff
 Fatal error: Uncaught TypeError: Typed property User::$id must be int, string used in {app}.php:9
+Fatal error: Uncaught TypeError: Typed property User::$name must be string, array used {app}.php:10
 ```
 
 ### 02-02. Arrow functions with implicit by-value scope binding
@@ -262,3 +263,42 @@ Array
 )
 ```
 
+### 02-04. Coalesce assign operator.
+Added support for coalesce assign (??=) operator.
+
+RFC: https://wiki.php.net/rfc/null_coalesce_equal_operator
+
+```php
+<?php 
+print("PHP version: " . phpversion() . "\n");
+
+$array = array();
+
+$array['key'] = $array['key'] ?? 'default';
+
+// or:
+// if (!isset($array['key'])) {
+//     $array['key'] = 'default';
+// }
+
+print_r($array);
+```
+
+```php
+<?php 
+print("PHP version: " . phpversion() . "\n");
+
+$array = array();
+
+$array['key'] ??= 'default';
+
+print_r($array);
+```
+
+#### PHP versions: 7.3.8 and 7.4.0beta1
+```diff
+Array
+(
+    [key] => default
+)
+```
