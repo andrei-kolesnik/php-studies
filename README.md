@@ -263,6 +263,59 @@ Array
 )
 ```
 
+### 02-03. Type covariance
+Added support for limited return type covariance and argument type contravariance..
+
+RFC: https://wiki.php.net/rfc/covariant-returns-and-contravariant-parameters
+
+```php
+<?php 
+print("PHP version: " . phpversion() . "\n");
+
+class A {
+  public function check() {
+    print("A\n");
+  }
+}
+
+class B extends A {
+  public function check() {
+    print("B\n");
+  }
+}
+
+class Producer {
+    public function method(): A {
+      print("Producer:");
+      return new A();
+    }
+}
+
+class ChildProducer extends Producer {
+    public function method(): B {
+      print("ChildProducer:");      
+      return new B();
+    }
+}
+
+$producer = new Producer();
+$producer->method()->check();
+
+$childProducer = new ChildProducer();
+$childProducer->method()->check();
+```
+
+#### PHP version: 7.3.8
+```diff
+Fatal error: Declaration of ChildProducer::method(): B must be compatible with Producer::method(): A in {app}.php on line 28
+```
+
+#### PHP version: 7.4.0beta1
+```diff
+Producer:A
+ChildProducer:B
+```
+
 ### 02-04. Coalesce assign operator.
 Added support for coalesce assign (??=) operator.
 
