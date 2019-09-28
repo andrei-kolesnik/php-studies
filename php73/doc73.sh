@@ -7,6 +7,7 @@ ln ../src/02-01-typed-properties.php .
 ln ../src/02-02-arrow-functions-7-3.php .
 ln ../src/02-03-type-covariance.php .
 ln ../src/02-04-coalesce-assign-operator-7-3.php .
+ln ../src/02-05-unpacking-inside-arrays.php .
 docker build -t php73-app .
 docker run -it --rm --name running73-app php73-app
 
@@ -19,3 +20,4 @@ docker run -it --rm --name running73-app php73-app
 # docker run -it --rm --name running73-app -v "$PWD":/usr/local/src/myapp -w /usr/local/src/myapp php:7.3.8-cli php 02-02-arrow-functions-7-3.php
 # docker run -it --rm --name running73-app -v "$PWD":/usr/local/src/myapp -w /usr/local/src/myapp php:7.3.8-cli php 02-03-type-covariance.php
 # docker run -it --rm --name running73-app -v "$PWD":/usr/local/src/myapp -w /usr/local/src/myapp php:7.3.8-cli php 02-04-coalesce-assign-operator-7-3.php
+# docker run -it --rm --name running73-app -v "$PWD":/usr/local/src/myapp -w /usr/local/src/myapp php:7.3.8-cli php 02-05-unpacking-inside-arrays.php

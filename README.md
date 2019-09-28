@@ -355,3 +355,37 @@ Array
     [key] => default
 )
 ```
+
+
+### 02-05. Unpacking inside arrays
+Added support for unpacking inside arrays.
+
+RFC: https://wiki.php.net/rfc/spread_operator_for_array
+
+```php
+<?php 
+print("PHP version: " . phpversion() . "\n");
+
+$arrInner = [3, 4];
+$arrOuter = [1, 2, ...$arrInner, 5];
+
+print_r($arrOuter); 
+```
+
+#### PHP version: 7.3.8
+```diff
+Parse error: syntax error, unexpected '...' (T_ELLIPSIS), expecting ']' in {app.php} on line 5
+```
+
+#### PHP version: 7.4.0beta1
+```diff
+PHP version: 7.4.0beta1
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 3
+    [3] => 4
+    [4] => 5
+)
+```
