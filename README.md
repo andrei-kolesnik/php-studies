@@ -433,3 +433,50 @@ Parse error: syntax error, unexpected '_567e' (T_STRING), expecting ')' in {app.
 1111
 123456
 ```
+
+### 02-07. exceptions from __toString()
+Throwing exceptions from `__toString()` is now permitted.
+
+RFC: https://wiki.php.net/rfc/tostring_exceptions
+
+```php
+<?php 
+<?php 
+print("PHP version: " . phpversion() . "\n");
+
+class TestClass
+{
+  public $data;
+  
+  public function __construct($data = null)
+  {
+    $this->data = $data;
+  }
+  
+  public function __toString()
+  {
+    if (is_null($this->data)) {
+      throw new \Exception("Not initialized");
+    } else {
+      return (string)$data;
+    }
+  }
+}
+
+$test = new TestClass();
+try {
+  print("$test");
+} catch (\Exception $e) {
+  print($e->getMessage());
+}
+```
+
+#### PHP version: 7.3.8
+```diff
+Fatal error: Method TestClass::__toString() must not throw an exception, caught Exception: Not initialized in {app.php} on line 0
+```
+
+#### PHP version: 7.4.0beta1
+```diff
+Not initialized
+```
