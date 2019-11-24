@@ -441,7 +441,6 @@ RFC: https://wiki.php.net/rfc/tostring_exceptions
 
 ```php
 <?php 
-<?php 
 print("PHP version: " . phpversion() . "\n");
 
 class TestClass
