@@ -3,7 +3,8 @@ https://github.com/php/php-src/blob/php-7.4.0beta1/UPGRADING
 
 ## 01. Backward Incompatible Changes
 
-### --- Core ---
+[ Core ]
+---
 
 ### 01-01. Notice for a non-valid array container
 Trying to use values of type *null*, *bool*, *int*, *float* or resource as an *array* (such as `$null["key"]`) will now generate a notice. This does not affect array accesses performed by `list()`. 
@@ -189,7 +190,8 @@ Parse error: syntax error, unexpected end of file in {app}.php on line 4
 
 ## 02. New Features
 
-### --- Core ---
+[ Core ]
+---
 
 ### 02-01. Typed properties
 Added support for typed properties.
@@ -388,4 +390,46 @@ Array
     [3] => 4
     [4] => 5
 )
+```
+
+### 02-06. Underscore separators in numeric literals
+Added support for underscore separators in numeric literals.
+
+RFC: https://wiki.php.net/rfc/numeric_literal_separator
+
+```php
+<?php 
+print("PHP version: " . phpversion() . "\n");
+
+printf("%e\n", 1.234_567e-89); // float
+printf("%d\n", 123_456_789);   // decimal
+printf("%X\n", 0x1234_ABCD);   // hexadecimal
+printf("%b\n", 0b0000_1111);   // binary
+printf("%o\n", 0123_456);      // octal
+
+/* NOT VALID:
+// already a valid constant name
+_123; 
+// "Parse error: syntax error":
+123_;       // trailing
+1__2;       // next to underscore
+1_.2; 1._2; // next to decimal point
+0x_123;     // next to x
+0b_101;     // next to b
+1_e2; 1e_2; // next to e
+*/
+```
+
+#### PHP version: 7.3.8
+```diff
+Parse error: syntax error, unexpected '_567e' (T_STRING), expecting ')' in {app.php} on line 4
+```
+
+#### PHP version: 7.4.0beta1
+```diff
+1.234567e-89
+123456789
+1234ABCD
+1111
+123456
 ```
